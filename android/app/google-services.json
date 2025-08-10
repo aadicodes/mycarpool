@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "462217540932",
+    "project_id": "mycarpool-556cf",
+    "storage_bucket": "mycarpool-556cf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462217540932:android:4d1f95a7d88d165e819311",
+        "android_client_info": {
+          "package_name": "com.example.my_first_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCO8p_uc7HnkzFG5cE_2bPi35M9k1UNrr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
