@@ -1,4 +1,4 @@
-# my_first_app
+# my_carpool_app
 
 A new Flutter project.
 
