@@ -16,7 +16,7 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ## Instructions to build this for iOS Simulator on macOS.
-### How to build and test this app in 4 steps, on macos and iOS simulator
+### How to build and test this app in 4 steps
 ```
 cd mycarpool
 # optional: use flutter clean when a fix need to be updated in pubspec.yaml file
