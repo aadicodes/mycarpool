@@ -1,10 +1,10 @@
 # my_carpool_app
 
-A new Flutter project.
+Sample Car Pool Mobile App.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This repository has sample Flutter and Dart code that create a carpool mobile app.
 
 A few resources to get you started if this is your first Flutter project:
 
