@@ -15,7 +15,8 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-## How to build and test this app in 4 steps, on macos and iOS simulator
+## Instructions to build this for iOS Simulator on macOS.
+### How to build and test this app in 4 steps, on macos and iOS simulator
 ```
 cd mycarpool
 # optional: use flutter clean when a fix need to be updated in pubspec.yaml file
@@ -26,7 +27,7 @@ flutter pub get
 flutter test
 flutter run
 ```
-## How to add a new app icon
+### How to add a new app icon
 1. Create a new icon and place the image file to lib/assets/icons/ folder
 2. Update pubspec.yaml file, assuming icon_v1.png is the icon file name
 ```
