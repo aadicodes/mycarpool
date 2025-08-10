@@ -45,6 +45,10 @@ dependencies:
 
   # Optional: Firebase Analytics
   firebase_analytics: ^12.0.0
+  envied: ^1.2.0
+dev_dependencies:
+  envied_generator: ^1.2.0
+  build_runner: ^2.6.0
   
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
