@@ -1,4 +1,4 @@
-name: My_Carpool_App
+name: my_carpool_app
 description: "A Flutter project by Rajesh Aadi."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -46,10 +46,20 @@ dependencies:
   # Optional: Firebase Analytics
   firebase_analytics: ^12.0.0
   envied: ^1.2.0
+  provider: ^6.0.5  # or latest version
+
 dev_dependencies:
   envied_generator: ^1.2.0
   build_runner: ^2.6.0
+  flutter_launcher_icons: ^0.10.0
   
+flutter_icons:
+  ios: true
+  image_path_ios: "lib/assets/icons/carpool_appicon_v5.png"
+  # If you also want Android:
+  # android: true
+  # image_path_android: "assets/icons/app_icon.png"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

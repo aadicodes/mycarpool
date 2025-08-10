@@ -18,7 +18,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
-import 'env/env.dart';
 
 // TODO: If using generated firebase_options.dart from FlutterFire CLI,
 // import it and call DefaultFirebaseOptions.currentPlatform in Firebase.initializeApp.
@@ -60,7 +59,7 @@ class AuthState extends ChangeNotifier {
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
-
+  /*
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthState>(context);
@@ -68,6 +67,12 @@ class AuthGate extends StatelessWidget {
       return const PhoneSignInScreen();
     }
     return GroupsListScreen();
+  }
+  */
+  @override
+  Widget build(BuildContext context) {
+    return GroupsListScreen();
+    ;
   }
 }
 
@@ -199,7 +204,7 @@ class GroupsListScreen extends StatelessWidget {
       },
     );
     if (name == null || name.isEmpty) return;
-
+    /*
     final user = FirebaseAuth.instance.currentUser!;
     final doc = await _groupsRef.add({
       'name': name,
@@ -207,7 +212,7 @@ class GroupsListScreen extends StatelessWidget {
       'createdAt': FieldValue.serverTimestamp(),
       'schedules': {},
     });
-
+    */
     // Optionally add reference to user doc or update user's group list
     // For simplicity we only create the group here.
   }
@@ -230,7 +235,7 @@ class GroupsListScreen extends StatelessWidget {
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _groupsRef
-            .where('members', arrayContains: user.phoneNumber)
+            .where('members', arrayContains: 'myPhone') //user.phoneNumber)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting)
@@ -316,9 +321,10 @@ class _GroupDetailScreenState extends State<GroupDetailScreen> {
     final user = FirebaseAuth.instance.currentUser!;
     final userDoc = FirebaseFirestore.instance
         .collection('users')
-        .doc(user.uid);
+        // .doc(user.uid);
+        .doc('myPhone');
     await userDoc.set({
-      'phone': user.phoneNumber,
+      'phone': 'test', // user.phoneNumber,
       'kids': FieldValue.arrayUnion([name]),
     }, SetOptions(merge: true));
   }

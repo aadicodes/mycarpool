@@ -18,22 +18,13 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      return fbOptionsWeb;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        return fbOptionsAndroid;
       case TargetPlatform.iOS:
-        return ios;
-      case TargetPlatform.macOS:
-        return macos;
-      case TargetPlatform.windows:
-        return windows;
-      case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return fbOptionsIOS;
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -41,7 +32,7 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static final FirebaseOptions web = FirebaseOptions(
+  static final FirebaseOptions fbOptionsWeb = FirebaseOptions(
     apiKey: '${Env.fbApiKeyWeb}',
     appId: '1:462217540932:web:6d65386052f25bec819311',
     messagingSenderId: '462217540932',
@@ -51,7 +42,7 @@ class DefaultFirebaseOptions {
     measurementId: 'G-XPPM2X5DX7',
   );
 
-  static final FirebaseOptions android = FirebaseOptions(
+  static final FirebaseOptions fbOptionsAndroid = FirebaseOptions(
     apiKey: '${Env.fbApiKeyAndroid}',
     appId: '1:462217540932:android:4d1f95a7d88d165e819311',
     messagingSenderId: '462217540932',
@@ -59,12 +50,12 @@ class DefaultFirebaseOptions {
     storageBucket: 'mycarpool-556cf.firebasestorage.app',
   );
 
-  static final FirebaseOptions ios = FirebaseOptions(
+  static final FirebaseOptions fbOptionsIOS = FirebaseOptions(
     apiKey: '${Env.fbApiKeyIOS}',
     appId: '1:462217540932:ios:7bd29f55ad7c8986819311',
     messagingSenderId: '462217540932',
     projectId: 'mycarpool-556cf',
     storageBucket: 'mycarpool-556cf.firebasestorage.app',
-    iosBundleId: 'com.example.myFirstApp',
+    iosBundleId: 'com.technyble.myCarpoolApp',
   );
 }
