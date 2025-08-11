@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../services/firestore_service.dart';
-import '../services/auth_service.dart';
+import '../models/Group.dart'; // Adjust path if needed
 
 class CreateGroupScreen extends StatefulWidget {
   const CreateGroupScreen({super.key});
@@ -12,12 +10,17 @@ class CreateGroupScreen extends StatefulWidget {
 class _CreateGroupScreenState extends State<CreateGroupScreen> {
   final _nameCtrl = TextEditingController();
   bool _saving = false;
+
+  // Instantiate the mock repo
+  //final mockGroupRepo = InMemoryGroupRepository();
+  var mockGroup = Group(
+    name: 'Default',
+    memberCount: 2,
+    members: ['Default Member 1', 'Default Member 2'],
+  );
+
   @override
   Widget build(BuildContext context) {
-    final db = Provider.of<FirestoreService>(context, listen: false);
-    final auth = Provider.of<AuthService>(context, listen: false);
-    final phone = auth.currentUser?.phoneNumber ?? '';
-
     return Scaffold(
       appBar: AppBar(title: const Text('Create Group')),
       body: Padding(
@@ -35,11 +38,22 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                   : () async {
                       setState(() => _saving = true);
                       try {
-                        final id = await db.createGroup(
-                          _nameCtrl.text.trim(),
-                          phone,
+                        // Use mockRepo to add group
+                        mockGroup = Group(
+                          name: _nameCtrl.text.trim(),
+                          memberCount: 2,
+                          members: ['NewGroup Member 1', 'NewGroup Member 2'],
                         );
-                        Navigator.of(context).pop();
+                        await Future.delayed(const Duration(milliseconds: 500));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Group "${_nameCtrl.text.trim()}" created (mock)',
+                            ),
+                          ),
+                        );
+                        Navigator.pop(context, mockGroup);
+                        // Navigator.of(context).pop();
                       } catch (e) {
                         ScaffoldMessenger.of(
                           context,

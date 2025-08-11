@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../services/auth_service.dart';
 import 'otp_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,7 +14,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _sending = false;
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthService>(context, listen: false);
     return Scaffold(
       appBar: AppBar(title: const Text('Sign in with Phone')),
       body: Padding(
@@ -37,30 +34,33 @@ class _LoginScreenState extends State<LoginScreen> {
                   : () async {
                       setState(() => _sending = true);
                       final phone = _phoneCtrl.text.trim();
-                      await auth.verifyPhone(
-                        phone: phone,
-                        codeSent: (verificationId, token) {
-                          setState(() => _sending = false);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => OtpScreen(
-                                verificationId: verificationId,
-                                phone: phone,
-                              ),
-                            ),
-                          );
-                        },
-                        verificationFailed: (e) {
-                          setState(() => _sending = false);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Verification failed: ${e.message}',
-                              ),
-                            ),
-                          );
-                        },
+                      // Mock: always succeed and go to OTP screen
+                      await Future.delayed(const Duration(milliseconds: 500));
+                      setState(() => _sending = false);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => OtpScreen(
+                            verificationId: 'mock_verification_id',
+                            phone: phone,
+                          ),
+                        ),
+                      );
+                    },
+              child: _sending
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text('Send Code'),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'For development: add test numbers in Firebase console.',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
                         verificationCompleted: (credential) async {
                           // auto sign in: credential contains phone auth
                           await auth.signInWithSmsCode(

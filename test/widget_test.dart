@@ -13,4 +13,20 @@ void main() {
   test('Addition works', () {
     expect(2 + 2, equals(4));
   });
+  /*
+  testWidgets('Smoke test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
+
+    // Verify that our counter has incremented.
+    // expect(find.text('0'), findsNothing);
+    // expect(find.text('1'), findsOneWidget);
+  });
+  group('AuthState', () {
+    test('initial user is null', () {
+      final authState = AuthState();
+      expect(authState.user, isNull);
+    });
+  });
+  */
 }

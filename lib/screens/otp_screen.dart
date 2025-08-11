@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../services/auth_service.dart';
-import '../services/firestore_service.dart';
 
 class OtpScreen extends StatefulWidget {
   final String verificationId;
@@ -22,9 +19,6 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthService>(context, listen: false);
-    final db = Provider.of<FirestoreService>(context, listen: false);
-
     return Scaffold(
       appBar: AppBar(title: const Text('Enter OTP')),
       body: Padding(
@@ -44,21 +38,27 @@ class _OtpScreenState extends State<OtpScreen> {
                   : () async {
                       setState(() => _verifying = true);
                       try {
-                        final credential = await auth.signInWithSmsCode(
-                          widget.verificationId,
-                          _otpCtrl.text.trim(),
-                        );
-                        // create user in Firestore if first time
-                        final phone =
-                            credential.user?.phoneNumber ?? widget.phone;
-                        if (phone != null) {
-                          await db.createUserIfNotExists(phone);
-                        }
-                        Navigator.of(
-                          context,
-                        ).popUntil((route) => route.isFirst);
+                        // Mock: always succeed and go to home
+                        await Future.delayed(const Duration(milliseconds: 500));
+                        Navigator.of(context).popUntil((route) => route.isFirst);
                       } catch (e) {
                         ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text('Error: $e')));
+                      } finally {
+                        setState(() => _verifying = false);
+                      }
+                    },
+              child: _verifying
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text('Verify'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
                           context,
                         ).showSnackBar(SnackBar(content: Text('Error: $e')));
                       } finally {

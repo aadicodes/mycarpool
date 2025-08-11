@@ -1,52 +1,52 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  // final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   // create user if not exists
   Future<void> createUserIfNotExists(String phone, {String? name}) async {
-    final doc = _db.collection('users').doc(phone);
-    final snapshot = await doc.get();
-    if (!snapshot.exists) {
-      await doc.set({
-        'phone': phone,
-        'name': name ?? '',
-        'kids': [],
-        'createdAt': FieldValue.serverTimestamp(),
-      });
-    }
+    // Mock: do nothing
+    return;
   }
 
   // create a group
   Future<String> createGroup(String groupName, String ownerPhone) async {
-    final docRef = await _db.collection('groups').add({
-      'name': groupName,
-      'owner': ownerPhone,
-      'members': [ownerPhone],
-      'createdAt': FieldValue.serverTimestamp(),
-    });
-    // add group ref to user (optional denormalization)
-    await _db.collection('users').doc(ownerPhone).update({
-      'groups': FieldValue.arrayUnion([docRef.id]),
-    });
-    return docRef.id;
+    // Mock: return a fake group id
+    await Future.delayed(const Duration(milliseconds: 300));
+    return 'mock_group_id';
   }
 
-  Stream<QuerySnapshot> groupsForUser(String phone) {
-    // simple query: groups where members array contains user
-    return _db
-        .collection('groups')
-        .where('members', arrayContains: phone)
-        .snapshots();
+  // Stream<QuerySnapshot> groupsForUser(String phone) {
+  //   // simple query: groups where members array contains user
+  //   return _db
+  //       .collection('groups')
+  //       .where('members', arrayContains: phone)
+  //       .snapshots();
+  // }
+  Stream<MockQuerySnapshot> groupsForUser(String phone) async* {
+    // Mock: yield a snapshot with fake groups
+    await Future.delayed(const Duration(milliseconds: 300));
+    yield MockQuerySnapshot([
+      MockDocument({'name': 'Morning School Run', 'members': ['Alice', 'Bob', 'Charlie']}),
+      MockDocument({'name': 'Soccer Practice', 'members': ['Dave', 'Eve']}),
+    ]);
   }
 
   Future<void> joinGroup(String groupId, String phone) async {
-    final ref = _db.collection('groups').doc(groupId);
-    await ref.update({
-      'members': FieldValue.arrayUnion([phone]),
-    });
-    await _db.collection('users').doc(phone).update({
-      'groups': FieldValue.arrayUnion([groupId]),
-    });
+    // Mock: do nothing
+    return;
   }
+}
+
+// Mock classes for QuerySnapshot and Document
+class MockQuerySnapshot {
+  final List<MockDocument> docs;
+  MockQuerySnapshot(this.docs);
+}
+
+class MockDocument {
+  final Map<String, dynamic> _data;
+  MockDocument(this._data);
+  Map<String, dynamic> data() => _data;
+}
 }
